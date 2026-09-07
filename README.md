@@ -1,30 +1,28 @@
-# Human Atlas
+# Atlas Humano
 
-An interactive 3D anatomy explorer built with React, Three.js, and shadcn/ui. Take the BodyParts3D adult male reference apart into **2,234 individually selectable meshes**, explore **15 anatomical systems**, and search **3,432 named concepts**.
+Explorador interactivo de anatomía 3D desarrollado con React, Three.js y shadcn/ui. Permite explorar la anatomía masculina adulta de referencia de BodyParts3D mediante **2.234 mallas seleccionables individualmente**, recorrer **15 sistemas anatómicos** y buscar entre **3.432 conceptos anatómicos con nombre**.
 
-**[Explore the live demo](https://human-atlas-seven.vercel.app)**
+## Explorar
 
-## Explore
+* Orbita, amplía y selecciona estructuras directamente sobre el cuerpo.
+* Activa o desactiva sistemas anatómicos individualmente o utiliza las vistas predefinidas de esqueleto y órganos.
+* Pasa de la anatomía ensamblada a una vista separada de cada estructura visible.
+* Busca nombres anatómicos e identificadores de la fuente.
+* Aísla una estructura seleccionada y consulta sus detalles.
+* Utiliza controles compactos y paneles de información adaptados a dispositivos móviles.
 
-- Orbit, zoom, and select structures directly on the body.
-- Toggle individual systems or use skeleton and organ presets.
-- Move from assembled anatomy to a spaced inventory of every visible piece.
-- Search anatomical names and source identifiers.
-- Isolate a selected structure and read its details.
-- Use compact controls and detail panels on mobile.
+## Ejecutar localmente
 
-## Run locally
-
-Requires Node.js 22.13 or newer. No API keys or accounts are needed.
+Requiere Node.js 22.13 o posterior. No se necesitan claves API ni cuentas adicionales.
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Open http://localhost:3016. To build the static site, run `npm run build`; the output is in `dist/`.
+Abre `http://localhost:3016`. Para generar el sitio estático ejecuta `npm run build`. El resultado se encuentra en `dist/`.
 
-## Validate
+## Validación
 
 ```sh
 npm run check
@@ -33,32 +31,32 @@ node scripts/validate-interactions.mjs
 npm run build
 ```
 
-Validation covers mesh buffers, names and concept membership, nonoverlapping exploded layouts at desktop and mobile aspect ratios, search and inspection contracts, and tap-versus-drag handling. Browser interaction checks have exercised selection, system controls, search, isolation, rotation, and 390×844, 320×568, and 844×390 layouts. Phone controls stay clear of the exploded inventory, and isolated structures fit the space above or beside the detail panel. Physical-device performance and real multitouch hardware have not been tested.
+La validación comprueba las mallas, los nombres y la pertenencia a conceptos, la distribución de estructuras en las vistas separadas, la búsqueda, la inspección y la interacción táctil. Se han comprobado controles de selección, sistemas, búsqueda, aislamiento y rotación en distintos formatos de pantalla.
 
-## Anatomy data
+## Datos anatómicos
 
-The current viewer uses **BodyParts3D 4.0**, an adult male reference anatomy, licensed **CC BY 4.0**. It does not represent every human structure or variation. Individual source meshes are distinct from named concepts, which may group multiple meshes. Descriptions distinguish general system context from individual organ explanations.
+El visor utiliza **BodyParts3D 4.0**, una anatomía masculina adulta de referencia con licencia **CC BY 4.0**. No representa todas las estructuras ni todas las variaciones anatómicas humanas. Las mallas individuales de la fuente son distintas de los conceptos anatómicos con nombre, que pueden agrupar varias mallas.
 
-Geometry is simplified for browser performance while retaining every source mesh. The packaged model contains 2,288,268 triangles and downloads approximately 33 MB of compressed geometry. Full credits, source links, and adaptation details are in [ATTRIBUTION.md](public/ATTRIBUTION.md).
+La geometría está simplificada para mejorar el rendimiento en el navegador conservando las mallas de la fuente. El modelo incluye 2.288.268 triángulos y aproximadamente 33 MB de geometría comprimida. Los créditos, fuentes y detalles de adaptación se encuentran en `public/ATTRIBUTION.md`.
 
-This is an educational explorer, not a diagnostic or surgical tool.
+**Este proyecto tiene finalidad educativa y de consulta anatómica. No es una herramienta diagnóstica ni quirúrgica.**
 
-## How it works
+## Funcionamiento
 
-Geometry is merged into batches. Per-structure GPU textures control translation, visibility, and selection, while component geometry supports accurate picking. Exploded layouts pack only the visible pieces. Rendering updates when the scene changes; orbit controls remain responsive without thousands of separate draw calls.
+La geometría se agrupa en lotes. Las texturas de GPU controlan la traslación, visibilidad y selección de cada estructura, mientras que la geometría de componentes permite una selección precisa. Las distribuciones separadas incluyen únicamente las piezas visibles.
 
-The optional WebMCP tools expose anatomy search and inspection in compatible browsers. The visible interface works without them.
+Las herramientas WebMCP opcionales permiten búsqueda e inspección anatómica en navegadores compatibles. La interfaz visible funciona sin ellas.
 
-## Rebuilding geometry
+## Reconstrucción de la geometría
 
-The repository includes browser-ready geometry. Rebuilding it is optional: obtain the official BodyParts3D OBJ archive and English metadata tables, prepare the joined concepts and display-system mappings, run `scripts/convert-anatomy.py`, then `node scripts/optimize-anatomy.mjs` and `node scripts/compress-models.mjs`. Simplification uses a 0.2% relative error limit per structure.
+El repositorio ya incluye la geometría preparada para navegador. Para reconstruirla se necesita el archivo OBJ oficial de BodyParts3D y las tablas de metadatos correspondientes. Después se ejecutan `scripts/convert-anatomy.py`, `node scripts/optimize-anatomy.mjs` y `node scripts/compress-models.mjs`.
 
-## Deploy
+## Despliegue
 
-Import this repository into Vercel as a Vite project. The included `vercel.json` configures `npm ci`, `npm run build`, and the `dist` output directory. It can also be served by a static host.
+Puede importarse este repositorio en Vercel como proyecto Vite. El archivo `vercel.json` incluido configura `npm ci`, `npm run build` y el directorio de salida `dist`. También puede alojarse en cualquier servidor de contenido estático compatible.
 
-## License
+## Licencias y atribución
 
-Original application code is released under the [MIT License](LICENSE). **The anatomy data has its own CC BY 4.0 license**; preserve the attribution when redistributing it. Third-party dependencies retain their respective licenses.
+El código original de la aplicación se distribuye bajo la **licencia MIT**. Los datos anatómicos tienen su propia licencia **CC BY 4.0** y debe conservarse su atribución al redistribuirlos. Las dependencias de terceros mantienen sus respectivas licencias.
 
-Issues and pull requests are welcome. Please include reproduction steps and browser/device details for interaction problems.
+Versión en español basada en el proyecto original `ashemag/human-atlas`.
