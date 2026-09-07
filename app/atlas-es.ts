@@ -14,7 +14,7 @@ export function localizeAtlas(source:Atlas,remoteAssets=false):Atlas{
  return {
   ...source,
   parts:source.parts.map(part=>({...part,name:translateAnatomicalName(part.name)})),
-  concepts:source.concepts.map(concept=>({...concept,name:translateAnatomicalName(concept.name)})),
+  concepts:source.concepts,
   chunks:source.chunks.map(chunk=>remoteAssets?{...chunk,url:assetUrl(chunk.url)!,gzip:assetUrl(chunk.gzip)}:chunk),
  };
 }
